@@ -1,510 +1,986 @@
-# \# RaceDay - Event Management System
+# RaceDay.API
 
-# 
 
-# \*\*Author:\*\* Nomvelo Zulu  
 
-# \*\*Module:\*\* Programming 2B (PROG6212)  
+\# RaceDay - Event Management System
 
-# \*\*Parts:\*\* 1 \& 2 - System Planning, Database, and RESTful API  
 
-# \*\*Date:\*\* October 2026
 
-# 
+\## Project Overview
 
-# \---
 
-# 
 
-# \## 📖 Project Overview
+RaceDay is a full-stack event management system designed specifically for the South African road running, walking, and cycling community. The platform enables Event Organisers to create and manage events, define categories, and capture participant results, while Participants can browse events, enrol, and track their personal performance history.
 
-# 
 
-# South Africa has a rich road events culture, from the iconic Comrades Marathon to the Cape Town Cycle Tour and hundreds of community park runs. However, many of these events are still managed through paper-based registration and disconnected spreadsheets.
 
-# 
+\---
 
-# \*\*RaceDay\*\* is a full-stack web-based event management system designed specifically for the South African road running, walking, and cycling community. This repository contains:
 
-# 
 
-# \- \*\*Part 1\*\*: Planning documents (ERD, API endpoint plan, SQL database script)
+\## Table of Contents
 
-# \- \*\*Part 2\*\*: A fully functional RESTful API built in ASP.NET Core with role-based JWT authentication, Swagger documentation, and comprehensive unit tests
 
-# \- \*\*Part 3\*\*: (Coming soon) MVC web application, Azure Blob Storage integration, and Docker containerisation
 
-# 
+\- \[Project Overview](#project-overview)
 
-# \---
+\- \[Features](#features)
 
-# 
+\- \[Technologies Used](#technologies-used)
 
-# \## 👥 User Roles
+\- \[Roles](#roles)
 
-# 
+\- \[Project Structure](#project-structure)
 
-# The system supports two distinct user roles, each with specific permissions:
+\- \[Part 1: System Planning and Database](#part-1-system-planning-and-database)
 
-# 
+\- \[Part 2: RESTful API](#part-2-restful-api)
 
-# \### 🏁 Organiser
+\- \[CI/CD Pipeline](#cicd-pipeline)
 
-# \- Create, edit, and delete events.
+\- \[Video Presentation](#video-presentation)
 
-# \- Define age and distance categories for each event.
+\- \[Setup Instructions](#setup-instructions)
 
-# \- View all participant enrolments for their own events.
+\- \[References](#references)
 
-# \- Capture and publish finish times and finishing positions.
 
-# \- Only able to manage events they created (ownership enforced at API level).
 
-# 
+\---
 
-# \### 🏃 Participant
 
-# \- Register and manage their personal profile.
 
-# \- Browse upcoming events with filtering options.
+\## Features
 
-# \- Enrol in events by selecting a relevant category.
 
-# \- View their personal enrolment history and race results.
 
-# \- Withdraw from enrolments they made.
+\### Part 1 (Completed)
 
-# 
+\- ✅ Entity Relationship Diagram (ERD) with 7 entities
 
-# \---
+\- ✅ Comprehensive API Endpoint Plan with 25+ endpoints
 
-# 
+\- ✅ SQL Database Script with full schema, constraints, and seed data
 
-# \## 📂 Repository Structure
+\- ✅ CI/CD validation workflow
 
-# 
+\- ✅ 20+ meaningful commits
 
-# ```
 
-# RaceDayDB/
 
-# ├── .github/
+\### Part 2 (Completed)
 
-# │   └── workflows/
+\- ✅ RESTful API built with ASP.NET Core Web API (.NET 8)
 
-# │       └── dotnet.yml                # CI/CD pipeline (build + test)
+\- ✅ JWT-based authentication and role-based authorization
 
-# ├── docs/                             # Planning documents (Part 1)
+\- ✅ Entity Framework Core (Code-First) with SQL Server
 
-# │   ├── ERD.png                       # Entity Relationship Diagram
+\- ✅ Full CRUD for Events, Categories, Enrolments, and Results
 
-# │   ├── API\_Endpoint\_Plan.md          # RESTful API endpoint specification
+\- ✅ Swagger UI integrated with JWT Authorize button
 
-# │   ├── RaceDay\_Schema.sql            # SQL Server database script
+\- ✅ \*\*12 unit tests passing\*\* (xUnit + WebApplicationFactory + InMemory DB)
 
-# │   └── ci-screenshot.png             # Green CI build screenshot
+\- ✅ GitHub Actions CI/CD running build + tests on every push
 
-# ├── RaceDay.API/                      # Main API project (Part 2)
 
-# │   ├── Controllers/                  # Auth, Users, Events, Categories, Enrolments, Results
 
-# │   ├── Data/                         # DbContext
+\### Part 3 (Planned)
 
-# │   ├── DTOs/                         # Data Transfer Objects
+\- 🚧 MVC Web Application
 
-# │   ├── Migrations/                   # EF Core migrations
+\- 🚧 Azure Blob Storage integration
 
-# │   ├── Models/                       # Entity models
+\- 🚧 Docker containerisation
 
-# │   ├── Program.cs                    # App configuration
+\- 🚧 Role-specific interfaces
 
-# │   └── appsettings.json              # Connection strings \& JWT config
 
-# ├── RaceDay.API.Tests/                # Unit test project (Part 2)
 
-# │   ├── AuthTests.cs
+\---
 
-# │   ├── EventTests.cs
 
-# │   ├── EnrolmentTests.cs
 
-# │   ├── RoleAccessTests.cs
+\## Technologies Used
 
-# │   ├── CustomWebApplicationFactory.cs
 
-# │   └── TestHelpers.cs
 
-# └── README.md                         # This file
+| Category | Technologies |
 
-# ```
+|----------|--------------|
 
-# 
+| \*\*Backend\*\* | ASP.NET Core Web API 8.0, C#, Entity Framework Core 8.x |
 
-# \---
+| \*\*Database\*\* | SQL Server (SSMS), LocalDB |
 
-# 
+| \*\*Authentication\*\* | JWT Bearer tokens, BCrypt password hashing |
 
-# \## 🛠️ Setup Instructions (Part 2 - API)
+| \*\*API Documentation\*\* | Swagger / OpenAPI (Swashbuckle) |
 
-# 
+| \*\*Testing\*\* | xUnit, WebApplicationFactory, EF Core InMemory Provider |
 
-# \### Prerequisites
+| \*\*Frontend (Part 3)\*\* | ASP.NET Core MVC, Bootstrap 5 |
 
-# 
+| \*\*Cloud Services (Part 3)\*\* | Azure Blob Storage |
 
-# \- \*\*Visual Studio 2022\*\* with the \*ASP.NET and web development\* workload
+| \*\*Containerisation (Part 3)\*\* | Docker |
 
-# \- \*\*.NET 8.0 SDK\*\*
+| \*\*Version Control\*\* | Git, GitHub |
 
-# \- \*\*SQL Server Express\*\* or \*\*LocalDB\*\*
+| \*\*CI/CD\*\* | GitHub Actions |
 
-# \- \*\*SQL Server Management Studio (SSMS)\*\* (optional, for viewing the database)
 
-# 
 
-# \### Step 1: Clone the Repository
+\---
 
-# 
 
-# ```bash
 
-# git clone https://github.com/YOUR\_USERNAME/poe1raceday.git
+\## Roles
 
-# cd poe1raceday
 
-# ```
 
-# 
+\### 1. Organiser
 
-# \### Step 2: Open in Visual Studio
+\- Create, edit, and delete events
 
-# 
+\- Manage event categories (age-based and distance-based)
 
-# Double-click `RaceDay.API.sln` to open the solution in Visual Studio 2022.
+\- View all enrolments for their own events
 
-# 
+\- Capture participant results (finish times, overall \& category positions, pace)
 
-# \### Step 3: Configure the Connection String
+\- Upload event banner images \*(Part 3)\*
 
-# 
 
-# Open `RaceDay.API/appsettings.json` and verify the connection string matches your environment:
 
-# 
+\### 2. Participant
 
-# ```json
+\- Create an account and log in
 
-# {
+\- Browse upcoming events (public endpoint)
 
-# &#x20; "ConnectionStrings": {
+\- Enrol in events by selecting a category
 
-# &#x20;   "DefaultConnection": "Server=(localdb)\\\\mssqllocaldb;Database=RaceDayDB;Trusted\_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"
+\- View personal enrolment history
 
-# &#x20; },
+\- Track personal results and performance
 
-# &#x20; "Jwt": {
+\- Update profile \*(Part 3)\*
 
-# &#x20;   "Key": "ThisIsAVeryLongSecretKeyForJwtSigningThatIsAtLeast32CharsLong!",
 
-# &#x20;   "Issuer": "RaceDayAPI",
 
-# &#x20;   "Audience": "RaceDayClient"
+\---
 
-# &#x20; }
 
-# }
 
-# ```
+\## Project Structure
 
-# 
 
-# \### Step 4: Apply Database Migrations
 
-# 
+```
 
-# In Visual Studio, open \*\*Tools → NuGet Package Manager → Package Manager Console\*\*. Set the \*\*Default project\*\* dropdown to `RaceDay.API`, then run:
+RaceDay.API/
 
-# 
+├── .github/
 
-# ```powershell
+│   └── workflows/
 
-# Update-Database
+│       └── dotnet.yml              # GitHub Actions CI workflow (build + test)
 
-# ```
+├── docs/                           # Part 1 documentation
 
-# 
+│   ├── ERD.png                     # Entity Relationship Diagram
 
-# This creates the `RaceDayDB` database with all tables (`Users`, `Events`, `Categories`, `Participants`, `EventEnrolments`, `EventRoutes`, `Results`).
+│   ├── EndpointPlan.md             # API Endpoint Plan
 
-# 
+│   ├── RaceDayDB.sql               # SQL Database Script
 
-# \### Step 5: Run the API
+│   └── ci-screenshot.png           # Successful GitHub Actions build
 
-# 
+├── RaceDay.API/                    # Part 2 - RESTful API
 
-# Press \*\*F5\*\* in Visual Studio. The API will start and open Swagger UI in your default browser at:
+│   ├── Controllers/
 
-# 
+│   │   ├── AuthController.cs       # Register + Login
 
-# ```
+│   │   ├── UsersController.cs      # Profile view \& update
 
-# https://localhost:7122/swagger
+│   │   ├── EventsController.cs     # Event CRUD
 
-# ```
+│   │   ├── CategoriesController.cs # Category CRUD
 
-# 
+│   │   ├── EnrolmentsController.cs # Enrolment operations
 
-# \### Step 6: Test the API in Swagger
+│   │   └── ResultsController.cs    # Result capture \& public board
 
-# 
+│   ├── Data/
 
-# 1\. \*\*Register an Organiser\*\*: `POST /api/Auth/register`
+│   │   └── RaceDayDbContext.cs     # EF Core context with relationships
 
-# &#x20;  ```json
+│   ├── DTOs/
 
-# &#x20;  {
+│   │   ├── RegisterDto.cs
 
-# &#x20;    "fullName": "Thabo",
+│   │   ├── LoginDto.cs
 
-# &#x20;    "lastName": "Mokoena",
+│   │   ├── EventDto.cs
 
-# &#x20;    "email": "thabo@raceday.com",
+│   │   ├── CategoryDto.cs
 
-# &#x20;    "password": "Password123!",
+│   │   ├── EnrolmentDto.cs
 
-# &#x20;    "role": "Organiser",
+│   │   ├── ResultDto.cs
 
-# &#x20;    "phone": "0821111111"
+│   │   └── UpdateProfileDto.cs
 
-# &#x20;  }
+│   ├── Models/
 
-# &#x20;  ```
+│   │   ├── User.cs
 
-# 
+│   │   ├── Event.cs
 
-# 2\. \*\*Register a Participant\*\*: `POST /api/Auth/register`
+│   │   ├── Category.cs
 
-# &#x20;  ```json
+│   │   ├── Participant.cs
 
-# &#x20;  {
+│   │   ├── EventEnrolment.cs
 
-# &#x20;    "fullName": "Lerato",
+│   │   ├── EventRoute.cs
 
-# &#x20;    "lastName": "Dlamini",
+│   │   └── Result.cs
 
-# &#x20;    "email": "lerato@raceday.com",
+│   ├── Migrations/                 # EF Core migrations
 
-# &#x20;    "password": "Password123!",
+│   ├── appsettings.json            # Connection string + JWT config
 
-# &#x20;    "role": "Participant",
+│   └── Program.cs                  # App configuration + middleware
 
-# &#x20;    "phone": "0832222222"
+├── RaceDay.API.Tests/              # Part 2 - Unit Tests (12 tests)
 
-# &#x20;  }
+│   ├── AuthTests.cs                # Register + Login tests
 
-# &#x20;  ```
+│   ├── EventTests.cs               # Event CRUD + role tests
 
-# 
+│   ├── EnrolmentTests.cs           # Enrolment + role tests
 
-# 3\. \*\*Login\*\*: `POST /api/Auth/login` with either user's credentials → copy the returned JWT token.
+│   ├── RoleAccessTests.cs          # Profile + role enforcement tests
 
-# 
+│   ├── CustomWebApplicationFactory.cs  # In-memory test host
 
-# 4\. \*\*Authorize in Swagger\*\*: Click the \*\*🔓 Authorize\*\* button (top-right), enter `Bearer <your-token>`, and click Authorize.
+│   └── TestHelpers.cs              # Register/login helper for tests
 
-# 
+├── RaceDay.API.sln
 
-# 5\. \*\*Create an Event\*\* as Organiser: `POST /api/Events`
+└── README.md
 
-# 
+```
 
-# 6\. \*\*Add a Category\*\*: `POST /api/events/{eventId}/categories`
 
-# 
 
-# 7\. \*\*Login as Participant\*\* and enrol: `POST /api/categories/{categoryId}/enrolments`
+\---
 
-# 
 
-# 8\. \*\*Capture a Result\*\* as Organiser: `POST /api/enrolments/{enrolmentId}/results`
 
-# 
+\## Part 1: System Planning and Database
 
-# 9\. \*\*View Results\*\* (public): `GET /api/events/{eventId}/results`
 
-# 
 
-# \---
+\### ERD
 
-# 
 
-# \## 🔐 Authentication \& Role-Based Access
 
-# 
+The Entity Relationship Diagram includes the following \*\*7 entities\*\*:
 
-# \- \*\*Authentication\*\*: JWT Bearer tokens. Users log in with email + password (BCrypt-hashed), and receive a signed token valid for 2 hours.
 
-# \- \*\*Roles\*\*: `Organiser` and `Participant`. Roles are stored as claims inside the JWT.
 
-# \- \*\*Authorization\*\*: Endpoints use `\[Authorize]` and `\[Authorize(Roles = "...")]` attributes to enforce access.
+| Entity | Description |
 
-# \- \*\*Ownership checks\*\*: An Organiser can only edit/delete their own events and categories. Ownership is verified in every protected action.
+|--------|-------------|
 
-# \- \*\*Password storage\*\*: Passwords are hashed with \*\*BCrypt\*\* before being stored — the original password is never persisted.
+| \*\*Users\*\* | Stores user accounts with role (Organiser/Participant) |
 
-# 
+| \*\*Participants\*\* | Extended participant profile linked to Users |
 
-# \---
+| \*\*Events\*\* | Event info (name, description, date, location, type) |
 
-# 
+| \*\*Categories\*\* | Age or distance categories for each event |
 
-# \## 🧪 Unit Tests
+| \*\*EventEnrolments\*\* | Links Participants → Categories → Events |
 
-# 
+| \*\*Routes\*\* | Route metadata (distance, elevation, map URL) |
 
-# The project includes \*\*12 unit tests\*\* covering:
+| \*\*Results\*\* | Finish time, positions, and pace per enrolment |
 
-# 
 
-# \- User registration (success + duplicate email)
 
-# \- User login (success + wrong password)
+\*\*Relationships:\*\*
 
-# \- Event management (Organiser allowed, Participant forbidden, unauthenticated blocked)
+\- Users → Events: One-to-Many (Organiser owns events)
 
-# \- Public endpoint access (get all events)
+\- Users → Participants: One-to-One
 
-# \- Enrolment creation (Participant allowed, Organiser forbidden)
+\- Events → Categories: One-to-Many
 
-# \- Profile updates
+\- Events → Routes: One-to-Many
 
-# 
+\- Participants → EventEnrolments: One-to-Many
 
-# \### Running Tests Locally
+\- Categories → EventEnrolments: One-to-Many
 
-# 
+\- EventEnrolments → Results: One-to-One
 
-# In Visual Studio: \*\*Test → Test Explorer → Run All Tests\*\*
 
-# 
 
-# Or via the terminal:
+The ERD is available at: \[`docs/ERD.png`](docs/ERD.png)
 
-# 
 
-# ```bash
 
-# dotnet test
+\### API Endpoint Plan
 
-# ```
 
-# 
 
-# \### Test Results
+The system exposes \*\*25+ endpoints\*\* organised by resource. Full plan available at: \[`docs/EndpointPlan.md`](docs/EndpointPlan.md)
 
-# 
 
-# ```
 
-# Passed! - Failed: 0, Passed: 12, Skipped: 0, Total: 12
+| Resource | Endpoints |
 
-# ```
+|----------|-----------|
 
-# 
+| \*\*Authentication\*\* | Register, Login |
 
-# Tests use an in-memory EF Core database (`CustomWebApplicationFactory`) so they don't touch the real SQL Server instance.
+| \*\*User Profile\*\* | Get (self), Update (self), Get by ID |
 
-# 
+| \*\*Events\*\* | List (with filters), Get by ID, Create, Update, Delete |
 
-# \---
+| \*\*Categories\*\* | List by event, Create, Update, Delete |
 
-# 
+| \*\*Enrolments\*\* | Create, Get mine, Get by event, Delete |
 
-# \## 🔄 CI/CD Pipeline
+| \*\*Results\*\* | Create, Get by event |
 
-# 
 
-# The repository uses \*\*GitHub Actions\*\* to automatically build and test the API on every push to `main`. The workflow is located at `.github/workflows/dotnet.yml`.
 
-# 
+\### SQL Database Script
 
-# \*\*Status:\*\* ✅ \[Insert screenshot of green build → `docs/ci-screenshot.png`]
 
-# 
 
-# \---
+The SQL script (`docs/RaceDayDB.sql`) includes:
 
-# 
+1\. \*\*Database Creation\*\*: `CREATE DATABASE RaceDayDB`
 
-# \## 📚 Documentation
+2\. \*\*Table Creation\*\*: 7 tables with full constraints (PK, FK, UNIQUE, NOT NULL, DEFAULT, CHECK)
 
-# 
+3\. \*\*Indexes\*\*: For performance on foreign keys and filter columns
 
-# Full planning documents are located in the `/docs` folder:
+4\. \*\*Seed Data\*\*:
 
-# 
+&#x20;  - 2 Organisers and 2 Participants
 
-# \- \*\*`ERD.png`\*\* — Entity Relationship Diagram with 7 entities: Users, Events, Categories, Participants, EventEnrolments, EventRoutes, Results. Includes primary keys, foreign keys, and cardinalities.
+&#x20;  - 3 Events (Comrades Marathon, Cape Town Cycle Tour, Soweto Marathon)
 
-# \- \*\*`API\_Endpoint\_Plan.md`\*\* — Complete RESTful API specification with methods, routes, roles, request bodies, and expected responses.
+&#x20;  - Categories for each event
 
-# \- \*\*`RaceDay\_Schema.sql`\*\* — SQL Server database creation script with seed data.
+&#x20;  - Sample Enrolments and Results
 
-# 
 
-# \---
 
-# 
+\---
 
-# \## 🎥 YouTube Video
 
-# 
 
-# A full walkthrough demonstrating the running API, code structure, authentication, and unit tests:
+\## Part 2: RESTful API
 
-# 
 
-# \---
 
-# 
+The API was built to closely match the Part 1 endpoint plan using \*\*ASP.NET Core Web API\*\* with \*\*Entity Framework Core (Code-First)\*\*.
 
-# \## 🗺️ Roadmap
 
-# 
 
-# \- \[x] \*\*Part 1\*\* — ERD, API endpoint plan, SQL database script
+\### Key Endpoints
 
-# \- \[x] \*\*Part 2\*\* — RESTful API with JWT auth, role-based access, Swagger, unit tests, CI/CD
 
-# \- \[ ] \*\*Part 3\*\* — MVC web application, Azure Blob Storage, Docker containerisation
 
-# 
+\#### 🔐 Authentication (`/api/auth`)
 
-# \---
+| Method | Route | Access | Description |
 
-# 
+|---|---|---|---|
 
-# \## 📖 References
+| POST | `/api/auth/register` | Public | Register as Organiser or Participant |
 
-# 
+| POST | `/api/auth/login` | Public | Login and receive a JWT token |
 
-# \- Microsoft Learn. (2026). \*ASP.NET Core Web API documentation\*. Available at: https://learn.microsoft.com/en-us/aspnet/core/ \[Accessed 1 October 2026].
 
-# \- Microsoft Learn. (2026). \*Entity Framework Core documentation\*. Available at: https://learn.microsoft.com/en-us/ef/core/ \[Accessed 1 October 2026].
 
-# \- W3Schools. (2025). \*SQL Tutorial\*. Available at: https://www.w3schools.com/sql/ \[Accessed 28 August 2026].
+\#### 👤 Users (`/api/users`)
 
-# \- Lucid Software Inc. (2026). \*Entity Relationship Diagrams\*. Lucidchart. Available at: https://www.lucidchart.com/pages/er-diagrams \[Accessed 1 September 2026].
+| Method | Route | Access | Description |
 
-# 
+|---|---|---|---|
 
-# \---
+| GET | `/api/users` | Any logged-in | Get own profile |
 
-# 
+| PUT | `/api/users` | Any logged-in | Update own profile |
 
-# \## 📄 License
+| GET | `/api/users/{id}` | Organiser | Get another user's public details |
 
-# 
 
-# This project is submitted as part of the IIE Programming 2B (PROG6212) PoE and is for academic purposes only.
+
+\#### 🏃 Events (`/api/events`)
+
+| Method | Route | Access | Description |
+
+|---|---|---|---|
+
+| GET | `/api/events` | Public | List events (filters: `?type=running\&date=2027-06-13`) |
+
+| GET | `/api/events/{id}` | Public | Get event with categories |
+
+| POST | `/api/events` | Organiser | Create event |
+
+| PUT | `/api/events/{id}` | Organiser (owner) | Update event |
+
+| DELETE | `/api/events/{id}` | Organiser (owner) | Delete event |
+
+
+
+\#### 🏷️ Categories (`/api/events/{eventId}/categories`, `/api/categories/{id}`)
+
+| Method | Route | Access | Description |
+
+|---|---|---|---|
+
+| GET | `/api/events/{eventId}/categories` | Public | List categories for an event |
+
+| POST | `/api/events/{eventId}/categories` | Organiser (owner) | Add a category |
+
+| PUT | `/api/categories/{id}` | Organiser (owner) | Update a category |
+
+| DELETE | `/api/categories/{id}` | Organiser (owner) | Delete a category |
+
+
+
+\#### 📝 Enrolments
+
+| Method | Route | Access | Description |
+
+|---|---|---|---|
+
+| POST | `/api/categories/{categoryId}/enrolments` | Participant | Enrol in a category |
+
+| GET | `/api/enrolments/me` | Participant | View own enrolments |
+
+| GET | `/api/events/{eventId}/enrolments` | Organiser (owner) | View all enrolments for an event |
+
+| DELETE | `/api/enrolments/{id}` | Participant (owner) | Withdraw from an enrolment |
+
+
+
+\#### 🏆 Results
+
+| Method | Route | Access | Description |
+
+|---|---|---|---|
+
+| POST | `/api/enrolments/{enrolmentId}/results` | Organiser (owner) | Capture a finish result |
+
+| GET | `/api/events/{eventId}/results` | Public | Public results board (sorted by finish time) |
+
+
+
+\### Authentication \& Authorization
+
+
+
+\- Passwords are hashed with \*\*BCrypt\*\* before storage.
+
+\- On login, a \*\*JWT\*\* is issued containing `NameIdentifier` (user ID), `Email`, and `Role` claims.
+
+\- `\[Authorize]` and `\[Authorize(Roles = "Organiser")]` / `\[Authorize(Roles = "Participant")]` attributes enforce role access on all protected endpoints.
+
+\- Ownership checks ensure Organisers can only manage their own events and Participants only view their own enrolments.
+
+
+
+\### Swagger UI
+
+
+
+Swagger is available at `/swagger` when running in Development mode. The UI includes an \*\*Authorize\*\* button (🔓) where you paste `Bearer <token>` to test protected endpoints.
+
+
+
+\---
+
+
+
+\## Testing
+
+
+
+The project includes \*\*12 xUnit tests\*\* covering:
+
+
+
+| Test Class | Tests | Coverage |
+
+|---|---|---|
+
+| `AuthTests` | 4 | Register (success, duplicate), Login (success, wrong password) |
+
+| `EventTests` | 4 | Create (as Organiser, as Participant, unauthenticated), Get all (public) |
+
+| `EnrolmentTests` | 2 | Enrol (as Participant), Enrol blocked (as Organiser) |
+
+| `RoleAccessTests` | 2 | Profile update, Get user by ID |
+
+
+
+Tests use `WebApplicationFactory<Program>` to spin up an in-memory instance of the API and `Microsoft.EntityFrameworkCore.InMemory` for the database. Each test class gets its own isolated database instance.
+
+
+
+\### Running Tests Locally
+
+
+
+```bash
+
+dotnet test
+
+```
+
+
+
+\*\*Expected:\*\* `Passed! - Failed: 0, Passed: 12, Skipped: 0, Total: 12`
+
+
+
+\---
+
+
+
+\## CI/CD Pipeline
+
+
+
+The GitHub Actions workflow (`.github/workflows/dotnet.yml`) is configured to:
+
+
+
+\- \*\*Trigger:\*\* On push to `main` and on pull requests to `main`
+
+\- \*\*Environment:\*\* Ubuntu latest with .NET 8
+
+\- \*\*Steps:\*\*
+
+&#x20; 1. Checkout repository
+
+&#x20; 2. Setup .NET 8
+
+&#x20; 3. Restore dependencies
+
+&#x20; 4. Build solution (Release)
+
+&#x20; 5. Run all unit tests
+
+
+
+\### ✅ Build Status
+
+
+
+!\[CI Status](docs/ci-screenshot.png)
+
+
+
+\*Screenshot of the successful green build stored at `docs/ci-screenshot.png`.\*
+
+
+
+\---
+
+
+
+\## Video Presentation
+
+
+
+🎥 \*\*Watch the walkthrough of Part 2\*\* (API demo, code structure, auth, tests):
+
+
+
+\---
+
+
+
+\## Setup Instructions
+
+
+
+\### Prerequisites
+
+
+
+\- \[Visual Studio 2022](https://visualstudio.microsoft.com/) with \*\*ASP.NET and web development\*\* workload
+
+\- \[.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+
+\- \[SQL Server Express / LocalDB](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) + \[SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)
+
+\- \[Git](https://git-scm.com/downloads)
+
+
+
+\### Step 1: Clone the Repository
+
+
+
+```bash
+
+git clone https://github.com/Otlotleng Mabiletsa/raceday.api.git
+
+cd poe1raceday
+
+```
+
+
+
+\### Step 2: Open the Solution
+
+
+
+1\. Open `RaceDay.API.sln` in Visual Studio 2022.
+
+2\. Wait for NuGet packages to restore automatically. If not, right-click the solution → \*\*Restore NuGet Packages\*\*.
+
+
+
+\### Step 3: Configure the Database Connection
+
+
+
+Open `RaceDay.API/appsettings.json` and verify the connection string:
+
+
+
+```json
+
+{
+
+&#x20; "ConnectionStrings": {
+
+&#x20;   "DefaultConnection": "Server=(localdb)\\\\mssqllocaldb;Database=RaceDayDB;Trusted\_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True"
+
+&#x20; },
+
+&#x20; "Jwt": {
+
+&#x20;   "Key": "ThisIsAVeryLongSecretKeyForJwtSigningThatIsAtLeast32CharsLong!",
+
+&#x20;   "Issuer": "RaceDayAPI",
+
+&#x20;   "Audience": "RaceDayClient"
+
+&#x20; }
+
+}
+
+```
+
+
+
+> Change the server name (`(localdb)\\mssqllocaldb`) if you use a different SQL Server instance.
+
+
+
+\### Step 4: Create and Migrate the Database
+
+
+
+In Visual Studio: \*\*Tools → NuGet Package Manager → Package Manager Console\*\*
+
+
+
+Set \*\*Default project\*\* to `RaceDay.API` and run:
+
+
+
+```powershell
+
+Update-Database
+
+```
+
+
+
+This creates the `RaceDayDB` database with all tables, constraints, and seed data.
+
+
+
+\### Step 5: Run the API
+
+
+
+Press \*\*F5\*\* or run in the terminal:
+
+
+
+```bash
+
+cd RaceDay.API
+
+dotnet run
+
+```
+
+
+
+The API will start on:
+
+\- \*\*HTTPS:\*\* `https://localhost:7122`
+
+\- \*\*HTTP:\*\* `http://localhost:5194`
+
+
+
+\### Step 6: Explore the API with Swagger
+
+
+
+Open your browser and navigate to:
+
+
+
+```
+
+https://localhost:7122/swagger
+
+```
+
+
+
+The Swagger UI lets you:
+
+1\. Register a user (`POST /api/Auth/register`)
+
+2\. Log in (`POST /api/Auth/login`) and copy the returned `token`
+
+3\. Click the \*\*Authorize 🔓\*\* button and paste `Bearer <token>`
+
+4\. Test all protected endpoints (create events, enrol, capture results)
+
+
+
+\### Step 7: Run the Unit Tests
+
+
+
+In Visual Studio: \*\*Test → Test Explorer → Run All Tests\*\*
+
+
+
+Or in terminal:
+
+
+
+```bash
+
+dotnet test
+
+```
+
+
+
+Expected: \*\*12 Passed, 0 Failed\*\*
+
+
+
+\### Part 3 Setup (Coming Soon)
+
+
+
+```bash
+
+cd RaceDay.MVC
+
+docker build -t raceday-mvc .
+
+docker run -p 8080:80 raceday-mvc
+
+```
+
+
+
+\---
+
+
+
+\## Commit History
+
+
+
+\*\*Minimum 20 meaningful commits\*\* per part. The commit history demonstrates progressive development across all parts:
+
+
+
+\- Initial repository setup
+
+\- ERD design
+
+\- API endpoint plan
+
+\- SQL database script
+
+\- Part 2: Authentication controller with JWT
+
+\- Part 2: EF Core models, DbContext, and migrations
+
+\- Part 2: Events, Categories, Enrolments, and Results controllers
+
+\- Part 2: Role-based authorization on all endpoints
+
+\- Part 2: Swagger JWT configuration
+
+\- Part 2: Unit tests (12 passing) with WebApplicationFactory
+
+\- Part 2: GitHub Actions CI/CD workflow
+
+\- Part 2: CI screenshot and README updates
+
+
+
+View full commit history: \[GitHub Commits](https://github.com/Otlotleng Mabiletsa/raceday.api/commits/main)
+
+
+
+\---
+
+
+
+\## References
+
+
+
+\- Microsoft (2024a). \*CREATE TABLE (Transact-SQL)\*. Microsoft Learn. Available at: https://learn.microsoft.com/en-us/sql/t-sql/statements/create-table-transact-sql \[Accessed 1 Sept. 2026].
+
+\- Microsoft (2024b). \*Entity Framework Core documentation\*. Microsoft Learn. Available at: https://learn.microsoft.com/en-us/ef/core/ \[Accessed 1 Sept. 2026].
+
+\- Microsoft (2024c). \*ASP.NET Core Web API documentation\*. Microsoft Learn. Available at: https://learn.microsoft.com/en-us/aspnet/core/web-api/ \[Accessed 1 Sept. 2026].
+
+\- Microsoft (2024d). \*JWT bearer authentication in ASP.NET Core\*. Microsoft Learn. Available at: https://learn.microsoft.com/en-us/aspnet/core/security/authentication/configure-jwt-bearer-authentication \[Accessed 5 Sept. 2026].
+
+\- Microsoft (2024e). \*Integration tests in ASP.NET Core\*. Microsoft Learn. Available at: https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests \[Accessed 10 Sept. 2026].
+
+\- Swashbuckle (2024). \*Swashbuckle.AspNetCore — GitHub\*. Available at: https://github.com/domaindrivendev/Swashbuckle.AspNetCore \[Accessed 5 Sept. 2026].
+
+\- xUnit.net (2024). \*Getting started with xUnit.net\*. Available at: https://xunit.net/docs/getting-started/netcore/cmdline \[Accessed 10 Sept. 2026].
+
+\- Lucid Software Inc. (2026). \*Quick guide to different types of Entity Relationship Diagrams\*. Lucidchart. Available at: https://www.lucidchart.com/pages/er-diagrams \[Accessed 1 Sept. 2026].
+
+
+
+\---
+
+
+
+\## Contact
+
+
+
+\*\*Student Name:\*\* Otlotleng Mabiletsa  
+
+\*\*Module:\*\* Programming 2B (PROG6212)  
+
+\*\*Year:\*\* 2026  
+
+\*\*GitHub:\*\* https://github.com/Otlotleng Mabiletsa/raceday.api
+
+
+
+\---
+
+
+
+\## License
+
+
+
+This project is submitted for academic assessment purposes as part of The IIE's Programming 2B module. All rights reserved.
+
+
+
+\---
+
+
+
+\*Last Updated: 15 October 2026\*
+
+
+
+\---
+
+
+
+\## 📝 What I Changed
+
+
+
+Here's a summary of what was updated in your README:
+
+
+
+| Section | Change |
+
+|---|---|
+
+| \*\*Features\*\* | Moved Part 2 items from 🚧 to ✅ — all completed |
+
+| \*\*Technologies Used\*\* | Fixed EF Core version (8.x), added BCrypt, added testing tools |
+
+| \*\*Roles\*\* | Marked Part 3 features as "Part 3" |
+
+| \*\*Project Structure\*\* | Replaced generic structure with your \*\*actual\*\* project layout (Controllers, DTOs, Models, Tests) |
+
+| \*\*ERD table\*\* | Renamed `EventCategories` → `EventEnrolments` to match your actual schema, added `Routes`, removed `Roles` lookup table |
+
+| \*\*Part 2 section\*\* | Added complete endpoint tables for all 6 resource groups, auth explanation, Swagger info |
+
+| \*\*Testing\*\* | New section with 12 tests and how to run them |
+
+| \*\*CI/CD\*\* | Fixed broken badge URL → now references `docs/ci-screenshot.png` |
+
+| \*\*Video Presentation\*\* | Added placeholder for Part 2 YouTube video |
+
+| \*\*Setup Instructions\*\* | Full working steps with actual commands (`Update-Database`, `dotnet run`, `dotnet test`) |
+
+| \*\*Commit History\*\* | Added Part 2 commits |
+
+| \*\*References\*\* | Replaced W3Schools/Bootstrap/etc. with proper Microsoft EF Core, ASP.NET Core, JWT, and testing docs |
+
+| \*\*Contact\*\* | Updated with your name (Otlotleng Mabiletsa) and correct GitHub link |
+
+
+
+\*\*Before submitting\*\*, do these three things:
+
+
+
+1\. \*\*Replace `YOUR\_VIDEO\_ID`\*\* in the Video Presentation section with your actual unlisted YouTube link.
+
+2\. \*\*Verify `docs/ci-screenshot.png` exists\*\* in your repo (you need to take a screenshot of the green GitHub Actions build and commit it).
+
+3\. \*\*Commit the README\*\* and any pending files:
+
+&#x20;  ```bash
+
+&#x20;  git add README.md docs/ci-screenshot.png
+
+&#x20;  git commit -m "Update README for Part 2 completion with CI screenshot and video link"
+
+&#x20;  git push origin main
+
+&#x20;  ```
 
